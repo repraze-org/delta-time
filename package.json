@@ -1,0 +1,30 @@
+{
+  "name": "delta-time",
+  "version": "1.0.0",
+  "description": "A simple module to compute intervals",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://repraze@github.com/repraze-org/delta-time.git"
+  },
+  "keywords": [
+    "time",
+    "parser",
+    "interval",
+    "delta",
+    "timeout"
+  ],
+  "author": "Thomas Dubosc (http://repraze.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/repraze-org/delta-time/issues"
+  },
+  "homepage": "https://github.com/repraze-org/delta-time#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
