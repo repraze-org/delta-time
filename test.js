@@ -4,7 +4,7 @@ var chai            = require('chai'),
     expect          = chai.expect,
     timeInterval    = require('./index');
 
-describe('time-interval-parser', function(){
+describe('delta-time', function(){
     describe('simple parse', function(){
         it('should return 0 when nothing is passed', function(){
             expect(timeInterval(undefined)).to.equal(0);
