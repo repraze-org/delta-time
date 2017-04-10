@@ -1,6 +1,6 @@
 {
   "name": "delta-time",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple module to compute intervals",
   "main": "index.js",
   "scripts": {
