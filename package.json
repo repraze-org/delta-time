@@ -15,7 +15,6 @@
     "delta",
     "parser",
     "interval",
-    "delta",
     "timeout"
   ],
   "author": "Thomas Dubosc (http://repraze.com)",
