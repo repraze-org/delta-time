@@ -1,4 +1,7 @@
 # delta-time
+
+[![Build Status](https://travis-ci.org/repraze-org/delta-time.svg?branch=master)](https://travis-ci.org/repraze-org/delta-time)
+
 A simple module to compute intervals
 
 * Simple function to parse user friendly intervals
