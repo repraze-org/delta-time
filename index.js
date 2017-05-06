@@ -29,6 +29,10 @@ var getMultipliyer = function(unit){
     return 0
 };
 
+var match   = /(\-?\s*(\.\d+|\d+(\.\d*)?))\s*[a-z]+/g;
+var split   = /(-?[^a-z\s]+)([^\s]+)/;
+var strip   = /\s+/g;
+
 module.exports = function(dt){
     if(!isNaN(+dt)){
         return +dt;
@@ -38,9 +42,9 @@ module.exports = function(dt){
         return 0;
     }
 
-    return dt.match(/\-?\d+\s*[a-z]+/g).reduce(function(acc, val){
-        var infos = val.match(/(-?\d+)[\s]*([^\s]*)/);
-        var amount = parseInt(infos[1], 10);
+    return dt.match(match).reduce(function(acc, val){
+        var infos = val.replace(strip, '').match(split);
+        var amount = parseFloat(infos[1], 10);
         var unit = infos[2].toLowerCase();
 
         var multipliyer = getMultipliyer(unit);

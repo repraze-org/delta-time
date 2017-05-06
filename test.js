@@ -72,6 +72,26 @@ describe('delta-time', function(){
         });
     });
 
+    describe('syntax check', function(){
+        it('should handle simple decimal points', function(){
+            expect(deltaTime("10.5s")).to.equal(10.5*1000);
+            expect(deltaTime("0.5s")).to.equal(0.5*1000);
+            expect(deltaTime("-0.5s")).to.equal(-0.5*1000);
+        });
+
+        it('should handle dot decimal points', function(){
+            expect(deltaTime(".5s")).to.equal(0.5*1000);
+            expect(deltaTime("-.5s")).to.equal(-0.5*1000);
+            expect(deltaTime("-.01m")).to.equal(-.01*1000*60);
+        });
+
+        it('should handle space before operators', function(){
+            expect(deltaTime("- 5s")).to.equal(-5*1000);
+            expect(deltaTime("3s + 5s")).to.equal((3+5)*1000);
+            expect(deltaTime("3s - 5s")).to.equal((3-5)*1000);
+        });
+    });
+
     describe('complex parse', function(){
         it('should handle multiple units', function(){
             expect(deltaTime("10 mins 10 sec")).to.equal(10*60*1000 + 10*1000);
