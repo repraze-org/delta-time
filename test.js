@@ -70,6 +70,12 @@ describe('delta-time', function(){
             expect(deltaTime("500 yr")).to.equal(500*1000*60*60*24*365.25);
             expect(deltaTime("   -10000     years  ")).to.equal(-10000*1000*60*60*24*365.25);
         });
+
+        it('should return micros', function(){
+            expect(deltaTime("100μs")).to.equal(100*(1000*1e-6));
+            expect(deltaTime("500 micros")).to.equal(500*(1000*1e-6));
+            expect(deltaTime("   -10000     microseconds ")).to.equal(-10000*(1000*1e-6));
+        });
     });
 
     describe('syntax check', function(){
@@ -92,6 +98,19 @@ describe('delta-time', function(){
         });
     });
 
+    describe('check scales', function(){
+        it('should have correct conversion scales', function(){
+            expect(deltaTime("1s")).to.equal(deltaTime("1000"));
+            expect(deltaTime("1s")).to.equal(deltaTime("1000ms"));
+            expect(deltaTime("1m")).to.equal(deltaTime("60s"));
+            expect(deltaTime("1h")).to.equal(deltaTime("60m"));
+            expect(deltaTime("1d")).to.equal(deltaTime("24h"));
+            expect(deltaTime("1w")).to.equal(deltaTime("7d"));
+            expect(deltaTime("1ms")).to.equal(deltaTime("1000μs"));
+            expect(deltaTime("1μs")).to.equal(deltaTime("1000ns"));
+        });
+    })
+
     describe('complex parse', function(){
         it('should handle multiple units', function(){
             expect(deltaTime("10 mins 10 sec")).to.equal(10*60*1000 + 10*1000);
@@ -106,8 +125,14 @@ describe('delta-time', function(){
         });
 
         it('should handle random words', function(){
+            expect(deltaTime("foo")).to.equal(0);
+            expect(deltaTime("hello world")).to.equal(0);
             expect(deltaTime("10 mins 1000")).to.equal(10*60*1000);
             expect(deltaTime("200 dogs")).to.equal(0);
+        });
+
+        it('should handle math like inputs', function(){
+            expect(deltaTime("2 mins - 60 secs - 60000 ms")).to.equal(0);
         });
     });
 });
