@@ -15,33 +15,53 @@ A simple module to compute intervals
 ## Usage
 
 ```javascript
-var deltaTime = require('delta-time');
+var dt = require('delta-time');
+```
 
-// using the utility
+### Perfect for timeouts
 
+```javascript
 setTimeout(function(){
     console.log("foo");
-}, deltaTime("500ms"));
+}, dt('500ms'));
 
 setTimeout(function(){
     console.log("bar");
-}, deltaTime("5 secs"));
+}, dt('5 secs'));
 
 setTimeout(function(){
     console.log("baz");
-}, deltaTime("1h30m5s"));
+}, dt('1h30m5s'));
+```
+
+### Allows complex specifications
+
+```javascript
+dt('- 1 day')               // -86400000
+dt('2 hours - 30 seconds')  // 7170000
+```
+
+### Not just for milliseconds
+
+```javascript
+dt('1000 ms', 's')                              // 1
+dt('2 week', 'days')                            // 14
+dt('300 Years, 5 Months and 2 Hours', 'days')   // 109727.28333333334
 ```
 
 ## API
 
-### function(time)
+### function(time, [unit])
 
 * Takes a number or a string describing a time interval
 * A combination of units can be given
 * Returns the value of the interval in ms
+* If a unit is provided, it will be used instead of ms
 
 ## Language
 
+* nanosecond    : ns, nano(s), nanosecond(s)
+* microsecond   : μs, micro(s), microsecond(s)
 * millisecond   : ms, milli(s), millisecond(s)
 * second        : s, sec(s), second(s)
 * minute        : m, min(s), minute(s)

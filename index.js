@@ -23,6 +23,10 @@ var units = [
     {match : ['ns','nano','nanos','nanosecond','nanoseconds'],      val : nanosecond}
 ];
 
+var match   = /(\-?\s*(\.\d+|\d+(\.\d*)?))\s*[a-zμ]+/g;
+var split   = /(-?[^a-zμ\s]+)([^\s]+)/;
+var strip   = /\s+/g;
+
 var getMultipliyer = function(unit){
     var u = units.find(function(u){
         return u.match.indexOf(unit) >= 0;
@@ -33,20 +37,28 @@ var getMultipliyer = function(unit){
     return 0
 };
 
-var match   = /(\-?\s*(\.\d+|\d+(\.\d*)?))\s*[a-zμ]+/g;
-var split   = /(-?[^a-zμ\s]+)([^\s]+)/;
-var strip   = /\s+/g;
+var isString = function(s){
+    return typeof s === 'string' || s instanceof String;
+}
 
-module.exports = function(dt){
-    if(!isNaN(+dt)){
-        return +dt;
+module.exports = function(dt, unit){
+    var divider = 1;
+    if(unit != undefined){
+        divider = isString(unit) ? getMultipliyer(unit.toLowerCase()) : null;
+        if(!divider){
+            throw new Error("Unit given as a second parameter is invalid");
+        }
     }
 
-    if(!(typeof dt === 'string' || dt instanceof String)){
+    if(!isNaN(+dt)){
+        return (+dt) / divider;
+    }
+
+    if(!isString(dt)){
         return 0;
     }
 
-    var list = dt.match(match);
+    var list = dt.toLowerCase().match(match);
     if(list){
         return list.reduce(function(acc, val){
             var infos = val.replace(strip, '').match(split);
@@ -56,8 +68,8 @@ module.exports = function(dt){
             var multipliyer = getMultipliyer(unit);
 
             return acc + amount * multipliyer;
-        }, 0);
+        }, 0) / divider;
     }
-    
+
     return 0;
 }
