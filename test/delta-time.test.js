@@ -1,8 +1,6 @@
-"use strict";
-
-var chai = require("chai");
-var expect = chai.expect;
-var dt = require("../");
+const chai = require("chai");
+const expect = chai.expect;
+const dt = require("../");
 
 describe("delta-time", function(){
     describe("simple parse", function(){
