@@ -16,6 +16,11 @@ A simple module to compute intervals
 
 ```javascript
 const dt = require("delta-time");
+
+dt("2 days"); // 172800000
+dt("1d"); // 86400000
+dt("1 micro"); // 0.001
+dt("1h1m1s"); // 3661000
 ```
 
 ### Perfect for timeouts
