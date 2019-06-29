@@ -15,7 +15,7 @@ A simple module to compute intervals
 ## Usage
 
 ```javascript
-var dt = require("delta-time");
+const dt = require("delta-time");
 ```
 
 ### Perfect for timeouts
