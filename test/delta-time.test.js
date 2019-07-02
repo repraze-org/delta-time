@@ -175,4 +175,77 @@ describe("delta-time", function(){
             }).to.throw(Error);
         });
     });
+
+    describe("strict", function(){
+        it("should not throw on regular parse", function(){
+            expect(dt.strict("100ms")).to.equal(100);
+            expect(dt.strict("10 mins - 10 sec")).to.equal(10 * 60 * 1000 - 10 * 1000);
+            expect(dt.strict("1h", "m")).to.equal(60);
+            expect(dt.strict("-1μs", "μs")).to.equal(-1);
+        });
+
+        it("should throw on unknown unit", function(){
+            expect(function(){
+                dt.strict("1000pi");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("1sec", "dogs");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("1000pi", "sec");
+            }).to.throw(Error);
+        });
+
+        it("should throw on unmatched params", function(){
+            expect(function(){
+                dt.strict("1ms ms");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("1ms ms ");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("1ms ms ");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("1ms 1");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("1ms 1 ");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("μs 1ms");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict(" ms 1ms");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("1 1ms");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict(" 1 1ms");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("1ms ms 1ms");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("1ms   ms   1ms");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("ms");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict(" ms ");
+            }).to.throw(Error);
+
+        });
+
+        it("should throw on invalid characters", function(){
+            expect(function(){
+                dt.strict("1MS");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("1sec, 1sec");
+            }).to.throw(Error);
+        });
+    });
 });
