@@ -178,10 +178,42 @@ describe("delta-time", function(){
 
     describe("strict", function(){
         it("should not throw on regular parse", function(){
+            expect(dt.strict(5000)).to.equal(5000);
             expect(dt.strict("100ms")).to.equal(100);
             expect(dt.strict("10 mins - 10 sec")).to.equal(10 * 60 * 1000 - 10 * 1000);
             expect(dt.strict("1h", "m")).to.equal(60);
             expect(dt.strict("-1μs", "μs")).to.equal(-1);
+            expect(dt.strict("0.5sec")).to.equal(500);
+            expect(dt.strict("1.5sec")).to.equal(1500);
+            expect(dt.strict("1.5sec2sec")).to.equal(3500);
+            expect(dt.strict("- 1.5sec + 2sec")).to.equal(500);
+        });
+
+        it("should throw on empty time argument", function(){
+            expect(function(){
+                dt.strict();
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict(" ");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict("    ");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict(undefined);
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict(null);
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict(NaN);
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict(Infinity);
+            }).to.throw(Error);
         });
 
         it("should throw on unknown unit", function(){
@@ -236,7 +268,6 @@ describe("delta-time", function(){
             expect(function(){
                 dt.strict(" ms ");
             }).to.throw(Error);
-
         });
 
         it("should throw on invalid characters", function(){
@@ -245,6 +276,18 @@ describe("delta-time", function(){
             }).to.throw(Error);
             expect(function(){
                 dt.strict("1sec, 1sec");
+            }).to.throw(Error);
+        });
+
+        it("should throw on invalid number", function(){
+            expect(function(){
+                dt.strict("01ms");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict(" 01ms ");
+            }).to.throw(Error);
+            expect(function(){
+                dt.strict(" .1ms ");
             }).to.throw(Error);
         });
     });

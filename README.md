@@ -21,6 +21,8 @@ dt("2 days"); // 172800000
 dt("1d"); // 86400000
 dt("1 micro"); // 0.001
 dt("1h1m1s"); // 3661000
+
+dt(500); // 500
 ```
 
 ### Perfect for timeouts
@@ -54,14 +56,32 @@ dt("2 week", "days"); // 14
 dt("300 Years, 5 Months and 2 Hours", "days"); // 109727.28333333334
 ```
 
+### Throws if you wish
+
+```javascript
+dt("1pizza"); // 0
+dt.strict("1pizza"); // Error: pizza is an unsupported time unit
+```
+
 ## API
 
-### function(time, [unit])
+### dt(\[time\[, unit\]\])
 
--   Takes a number or a string describing a time interval
--   A combination of units can be given
--   Returns the value of the interval in ms
--   If a unit is provided, it will be used instead of ms
+-   **time** : Number or string describing a time interval.
+    -   Number : Time will be treated as milliseconds.
+    -   String : Time is a series of \[number\]\[unit\] with optional whitespace.
+-   **unit** : If provided, it will be used instead of ms for conversion.
+
+Returns the computed value of time in ms or in the unit provided. Will return 0 by default if no time is given or no match is found in the string.
+
+### dt.strict(time\[, unit\])
+
+-   **time** : Number or string describing a time interval.
+    -   Number : Time will be treated as milliseconds.
+    -   String : Time is a series of \[number\]\[unit\] with optional whitespace.
+-   **unit** : If provided, it will be used instead of ms for conversion.
+
+Returns the computed value of time in ms or in the unit provided. If time is not a number or a string, or if units or numbers provided in the string are not formated correctly, it will throw.
 
 ## Language
 
