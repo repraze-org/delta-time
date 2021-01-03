@@ -173,20 +173,5 @@ describe("delta-time", function () {
             expect(calc("1d", "h")).toEqual(24);
             expect(calc("1h", "d")).toEqual(1 / 24);
         });
-
-        test("should throw on invalid unit", function () {
-            expect(function () {
-                calc("1sec", "dogs");
-            }).toThrow(Error);
-            expect(function () {
-                calc("1sec", 123);
-            }).toThrow(Error);
-            expect(function () {
-                calc("1sec", {});
-            }).toThrow(Error);
-            expect(function () {
-                calc("1sec", []);
-            }).toThrow(Error);
-        });
     });
 });
