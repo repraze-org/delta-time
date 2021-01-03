@@ -1,3 +1,3 @@
-import {calc, delay} from "./delta-time";
+import {calc, delay, TimeUnit, TimeObject, TimeValue} from "./delta-time";
 
-export {calc as dt, calc, delay};
+export {calc as dt, calc, delay, TimeUnit, TimeObject, TimeValue};

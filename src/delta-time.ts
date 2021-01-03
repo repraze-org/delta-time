@@ -71,7 +71,8 @@ const TIME_UNIT_MAP = TIME_UNITS.reduce<{[unit: string]: number}>((out, define) 
     return out;
 }, {});
 
-// types
+// time types
+
 export type TimeUnit =
     | NanoTimeUnit
     | MicroTimeUnit
@@ -84,8 +85,8 @@ export type TimeUnit =
     | MonthTimeUnit
     | YearTimeUnit;
 
-// time interface for object had a subset of the units for clean declarations
-export interface timeObject {
+// subset of the units for clean declarations
+export interface TimeObject {
     nanoseconds?: number;
     microseconds?: number;
     milliseconds?: number;
@@ -98,7 +99,7 @@ export interface timeObject {
     years?: number;
 }
 
-type timeValue = string | number | timeObject;
+export type TimeValue = string | number | TimeObject;
 
 // calc method
 
@@ -106,7 +107,7 @@ const MATCH_REGEXP = /(-?\s*(\.\d+|\d+(\.\d*)?))\s*[a-zμ]+/g;
 const SPLIT_REGEXP = /(-?[^a-zμ\s]+)([^\s]+)/;
 const STRIP_REGEXP = /\s+/g;
 
-export function calc(time: timeValue, unit?: TimeUnit): number {
+export function calc(time: TimeValue, unit?: TimeUnit): number {
     // find what return unit to use
     let divider: number | undefined = 1;
     if (unit != undefined) {
@@ -160,7 +161,7 @@ export function calc(time: timeValue, unit?: TimeUnit): number {
 
 // delay utility
 
-export async function delay(time: timeValue): Promise<void> {
+export async function delay(time: TimeValue): Promise<void> {
     return new Promise<void>((res, rej) => {
         setTimeout(() => {
             res();
