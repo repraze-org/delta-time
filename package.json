@@ -14,7 +14,8 @@
         "build-clean": "rm -rf lib/*",
         "build-cjs": "tsc -p tsconfig.cjs.json",
         "build-esm": "tsc -p tsconfig.esm.json",
-        "coverage": "npm run test -- --coverage"
+        "coverage": "npm run test -- --coverage",
+        "prepublishOnly": "npm run build"
     },
     "files": [
         "lib/"
