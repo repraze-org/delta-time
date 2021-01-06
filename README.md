@@ -1,4 +1,4 @@
-# delta-time
+# ⏲️ delta-time
 
 [![npm](https://img.shields.io/npm/v/delta-time.svg?logo=npm&style=flat-square)](https://www.npmjs.com/package/delta-time)
 [![GitHub Workflow CI Status](https://img.shields.io/github/workflow/status/repraze-org/delta-time/CI?logo=github&style=flat-square)](https://github.com/repraze-org/delta-time/actions?query=workflow%3ACI)
