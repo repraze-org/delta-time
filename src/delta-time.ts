@@ -101,13 +101,13 @@ export interface TimeObject {
 
 export type TimeValue = string | number | TimeObject;
 
-// calc method
+// calculate time method
 
 const MATCH_REGEXP = /(-?\s*(\.\d+|\d+(\.\d*)?))\s*[a-zμ]+/g;
 const SPLIT_REGEXP = /(-?[^a-zμ\s]+)([^\s]+)/;
 const STRIP_REGEXP = /\s+/g;
 
-export function calc(time: TimeValue, unit?: TimeUnit): number {
+export function calculate(time: TimeValue, unit?: TimeUnit): number {
     // find what return unit to use
     let divider: number | undefined = 1;
     if (unit != undefined) {
@@ -161,10 +161,25 @@ export function calc(time: TimeValue, unit?: TimeUnit): number {
 
 // delay utility
 
-export async function delay(time: TimeValue): Promise<void> {
-    return new Promise<void>((res, rej) => {
+interface DelayConfigResolve<T> {
+    reject: false;
+    value?: T;
+}
+interface DelayConfigReject {
+    reject?: true;
+    value?: unknown;
+}
+export type DelayConfig<T> = DelayConfigResolve<T> | DelayConfigReject;
+
+export async function delay<T = undefined>(time: TimeValue, config?: DelayConfig<T>): Promise<T | undefined> {
+    return new Promise<T | undefined>((res, rej) => {
         setTimeout(() => {
-            res();
-        }, calc(time));
+            const value = config?.value;
+            if (config?.reject === true) {
+                rej(value);
+            } else {
+                res(value as T);
+            }
+        }, calculate(time));
     });
 }
