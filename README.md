@@ -13,11 +13,11 @@ A simple module to compute intervals
 -   Comes with a utility to delay a promise
 -   Dependency free and typed
 
-## Installation
+## 📦 Installation
 
     npm install delta-time
 
-## Usage
+## 📚 Usage
 
 ```javascript
 import {calculate as dt, delay} from "delta-time";
@@ -72,7 +72,7 @@ dt("2 week", "days"); // 14
 dt("300 Years, 5 Months and 2 Hours", "days"); // 109727.28333333334
 ```
 
-## API
+## 📖 API
 
 ### calculate(time: TimeValue, unit?: TimeUnit): number
 
@@ -89,7 +89,7 @@ dt("300 Years, 5 Months and 2 Hours", "days"); // 109727.28333333334
     -   An optional `reject` boolean field, set it to true to reject (default is false)
 -   Returns a Promise that resolves or rejects the optional value given after the time given
 
-## Language
+## 🌐 Language
 
 | Unit        | Duration                | String units                 | Object key   |
 | ----------- | ----------------------- | ---------------------------- | ------------ |
@@ -104,7 +104,7 @@ dt("300 Years, 5 Months and 2 Hours", "days"); // 109727.28333333334
 | month       | 30.44 days              | mo(s), month(s)              | months       |
 | year        | 365.25 days             | y, yr(s), year(s)            | years        |
 
-## Environment import
+## 🧪 Environment import
 
 The package is bundled in cjs and esm for bundlers.
 
